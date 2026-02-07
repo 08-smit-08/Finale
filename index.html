@@ -1,246 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Something Special 💖</title>
+<meta charset="UTF-8" />
+<title>For Someone Special ❤️</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{
-  height:100vh;
-  overflow:hidden;
-  color:white;
-  background:black;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Georgia', serif;
 }
 
-/* BACKGROUND */
-.bg{
-  position:fixed;
-  inset:0;
-  background:url('bg.jpg') center/cover no-repeat;
-  filter:blur(6px) brightness(0.5);
-  transform:scale(1.1);
-  animation:bgZoom 30s linear infinite;
-  z-index:-2;
-}
-@keyframes bgZoom{
-  0%{transform:scale(1.1)}
-  100%{transform:scale(1.25)}
+body {
+  overflow: hidden;
+  background: url('bg.jpg') center/cover fixed;
+  height: 100vh;
+  color: #fff;
 }
 
-/* DARK OVERLAY */
-.overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-  z-index:-1;
+.scene {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  backdrop-filter: blur(4px);
 }
 
-/* SCENES */
-.scene{
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  opacity:0;
-  pointer-events:none;
-  transition:opacity 1.2s ease;
-}
-.scene.active{
-  opacity:1;
-  pointer-events:auto;
+.scene.active {
+  display: flex;
+  animation: fadeIn 1.2s ease;
 }
 
-/* TEXT */
-h1{
-  font-size:2.2rem;
-  text-align:center;
-  margin-bottom:25px;
-  text-shadow:0 0 20px pink;
-}
-p{
-  font-size:1.3rem;
-  text-align:center;
-  max-width:80%;
-  line-height:1.6;
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-/* BUTTONS */
-.btn{
-  padding:14px 32px;
-  border-radius:40px;
-  border:none;
-  font-size:1.1rem;
-  margin:15px;
-  cursor:pointer;
-  transition:.3s;
-}
-.yes{
-  background:linear-gradient(45deg,#ff006e,#ff4d6d);
-  color:white;
-  box-shadow:0 0 25px #ff006e;
-}
-.yes:hover{transform:scale(1.1)}
-.no{
-  background:#444;
-  color:#eee;
-  position:relative;
+button {
+  margin-top: 25px;
+  padding: 12px 26px;
+  font-size: 18px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg,#ff4d6d,#ff758f);
+  color: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
 }
 
-/* FLOWER */
-.flower{
-  width:280px;
-  margin-top:20px;
-  animation:float 4s ease-in-out infinite;
-  filter:drop-shadow(0 0 30px rgba(255,200,150,.6));
-}
-@keyframes float{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-20px)}
+button:hover { transform: scale(1.05); }
+
+img {
+  max-width: 70%;
 }
 
-/* CHARACTER */
-.character{
-  position:absolute;
-  bottom:0;
-  right:20px;
-  width:240px;
-  animation:bounce 2.5s infinite;
-}
-@keyframes bounce{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-15px)}
+.text {
+  font-size: 28px;
+  text-align: center;
+  max-width: 80%;
+  line-height: 1.4;
 }
 
-/* CONFETTI + FIREWORKS */
-canvas{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
+/* typing animation */
+.typing {
+  border-right: 2px solid white;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 5s steps(60,end), blink .8s infinite;
 }
 
-/* FINAL TEXT */
-.final{
-  font-size:2.4rem;
-  animation:pulse 1.5s infinite;
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
-@keyframes pulse{
-  0%,100%{transform:scale(1)}
-  50%{transform:scale(1.1)}
+@keyframes blink {
+  50% { border-color: transparent }
+}
+
+/* gifts */
+.gifts {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px;
+}
+
+.gift {
+  width: 120px;
+  cursor: pointer;
+  transition: transform .3s;
+}
+.gift:hover { transform: scale(1.1) rotate(-2deg); }
+
+/* 🎈 BALLOONS – WHITE BG REMOVED */
+.balloon {
+  position: absolute;
+  bottom: -150px;
+  animation: float 10s linear forwards;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.25));
+}
+
+@keyframes float {
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* fireworks canvas */
+canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
-<div class="overlay"></div>
-
+<audio id="bgm" src="music.mp3" loop></audio>
+<audio id="ding" src="ding.mp3"></audio>
 <canvas id="fx"></canvas>
 
-<!-- SCENE 1 -->
-<div class="scene active" id="s1">
-  <h1>Hey you… 💖</h1>
-  <p>I made this just for you.</p>
-  <button class="btn yes" onclick="next(2)">Continue ✨</button>
+<div class="scene active">
+  <img src="flower.png">
+  <div class="text">Hey… I made something for you 🌹</div>
+  <button onclick="next()">Start</button>
 </div>
 
-<!-- SCENE 2 -->
-<div class="scene" id="s2">
-  <p>Some moments deserve a little extra effort…</p>
-  <button class="btn yes" onclick="next(3)">I agree 😌</button>
+<div class="scene">
+  <img src="chhota bheem.png">
+  <div class="text">Not because I had to…<br>but because you matter.</div>
+  <button onclick="next()">Next</button>
 </div>
 
-<!-- SCENE 3 -->
-<div class="scene" id="s3">
-  <p>I wanted to give you something beautiful 🌻</p>
-  <img src="flower.png" class="flower">
-  <button class="btn yes" onclick="next(4)">Aww 💕</button>
+<div class="scene">
+  <div class="text">Every smile, every moment…<br>they stayed with me.</div>
+  <button onclick="next()">Next</button>
 </div>
 
-<!-- SCENE 4 -->
-<div class="scene" id="s4">
-  <h1>Will you be my Valentine? 💘</h1>
-  <button class="btn yes" onclick="celebrate()">YESSS 💖</button>
-  <button class="btn no" id="no">No 🙄</button>
-  <img src="chhota bheem.png" class="character">
+<div class="scene">
+  <div class="text">So I had one question…</div>
+  <button onclick="next()">Continue</button>
 </div>
 
-<!-- FINAL -->
-<div class="scene" id="s5">
-  <div class="final">I KNEW IT 🎉💖</div>
+<div class="scene">
+  <div class="text">Will you be my Valentine? 💖</div>
+  <button onclick="celebrate()">Yessss 💘</button>
 </div>
 
-<audio id="music" src="music.mp3" loop></audio>
-<audio id="ding" src="ding.mp3"></audio>
+<div class="scene">
+  <img src="page.png">
+  <div class="text typing">
+    it was wonderful knowing u,<br>u are important 🤍
+  </div>
+  <button onclick="next()">Next</button>
+</div>
+
+<div class="scene">
+  <div class="text">Valentine Week Gifts 🎁</div>
+  <div class="gifts">
+    <img class="gift" src="box.jpg" onclick="openDay(0)">
+    <img class="gift" src="box.jpg" onclick="openDay(1)">
+    <img class="gift" src="box.jpg" onclick="openDay(2)">
+    <img class="gift" src="box.jpg" onclick="openDay(3)">
+    <img class="gift" src="box.jpg" onclick="openDay(4)">
+    <img class="gift" src="box.jpg" onclick="openDay(5)">
+    <img class="gift" src="box.jpg" onclick="openDay(6)">
+    <img class="gift" src="box.jpg" onclick="openDay(7)">
+  </div>
+</div>
+
+<div class="scene" id="dayScene">
+  <div class="text" id="dayText"></div>
+</div>
 
 <script>
-let musicStarted=false;
-function playMusic(){
-  if(!musicStarted){
-    document.getElementById('music').volume=0.35;
-    document.getElementById('music').play();
-    musicStarted=true;
+const scenes = document.querySelectorAll('.scene');
+let i = 0;
+
+const texts = [
+  "Happy Rose Day 🌹<br>Soft beginnings matter.",
+  "Happy Propose Day 💍<br>Honesty is brave.",
+  "Happy Chocolate Day 🍫<br>Sweetness shared.",
+  "Happy Teddy Day 🧸<br>Comfort feels safe.",
+  "Happy Promise Day 🤞<br>Intent matters.",
+  "Happy Hug Day 🤍<br>Warmth heals.",
+  "Happy Kiss Day 💋<br>Trust is closeness.",
+  "Happy Valentine’s Day ❤️<br>This… is special."
+];
+
+function next() {
+  ding.play();
+  scenes[i].classList.remove('active');
+  i++;
+  scenes[i].classList.add('active');
+}
+
+function celebrate() {
+  ding.play();
+  fireworks(40);
+  next();
+}
+
+function openDay(d) {
+  ding.play();
+  fireworks(d === 7 ? 80 : 30);
+  document.getElementById('dayText').innerHTML = texts[d];
+  scenes[i].classList.remove('active');
+  document.getElementById('dayScene').classList.add('active');
+  setTimeout(() => {
+    document.getElementById('dayScene').classList.remove('active');
+    scenes[i].classList.add('active');
+  }, 2200);
+}
+
+const canvas = document.getElementById('fx');
+const ctx = canvas.getContext('2d');
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+function fireworks(count){
+  for(let j=0;j<count;j++){
+    const x = Math.random()*canvas.width;
+    const y = Math.random()*canvas.height/2;
+    ctx.fillStyle = `rgba(255,0,100,${Math.random()})`;
+    ctx.beginPath();
+    ctx.arc(x,y,3,0,Math.PI*2);
+    ctx.fill();
   }
-}
-function next(n){
-  playMusic();
-  document.getElementById('ding').play();
-  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
-  document.getElementById('s'+n).classList.add('active');
+  setTimeout(()=>ctx.clearRect(0,0,canvas.width,canvas.height),1500);
 }
 
-/* RUNAWAY NO */
-const no=document.getElementById('no');
-if(no){
-  no.addEventListener('mouseenter',()=>{
-    no.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*150-75}px)`;
-  });
+function balloon(){
+  const img = document.createElement('img');
+  img.src = Math.random()>.5?'balloon.jpg':'balloon2.jpg';
+  img.className='balloon';
+  img.style.left=Math.random()*100+'vw';
+  img.style.width='80px';
+  document.body.appendChild(img);
+  setTimeout(()=>img.remove(),10000);
 }
+setInterval(balloon,3000);
 
-/* CELEBRATION */
-const c=document.getElementById('fx'),ctx=c.getContext('2d');
-let w,h,parts=[];
-function resize(){w=c.width=innerWidth;h=c.height=innerHeight}
-resize();window.onresize=resize;
-
-function firework(){
-  for(let i=0;i<120;i++){
-    parts.push({
-      x:w/2,y:h/2,
-      vx:(Math.random()-0.5)*10,
-      vy:(Math.random()-0.5)*10,
-      life:100,
-      color:`hsl(${Math.random()*360},100%,60%)`
-    });
-  }
-}
-function draw(){
-  ctx.clearRect(0,0,w,h);
-  parts.forEach((p,i)=>{
-    p.x+=p.vx;
-    p.y+=p.vy;
-    p.vy+=0.05;
-    p.life--;
-    ctx.fillStyle=p.color;
-    ctx.fillRect(p.x,p.y,4,4);
-    if(p.life<=0) parts.splice(i,1);
-  });
-  requestAnimationFrame(draw);
-}
-draw();
-
-function celebrate(){
-  playMusic();
-  document.getElementById('ding').play();
-  document.getElementById('music').volume=0.55;
-  next(5);
-  firework();
-  setInterval(firework,1200);
-}
+window.onload=()=>document.getElementById('bgm').play();
 </script>
 
 </body>
